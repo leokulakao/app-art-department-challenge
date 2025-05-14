@@ -59,6 +59,7 @@ module.exports = tseslint.config(
         },
       ],
       'unused-imports/no-unused-imports': 'error',
+      '@angular-eslint/component-max-inline-declarations': ['off']
     },
   },
   {
