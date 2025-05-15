@@ -1,16 +1,11 @@
-import { Injectable, signal } from '@angular/core';
-import {
-  createClient,
-  SupabaseClient,
-  UserResponse,
-} from '@supabase/supabase-js';
+import { Injectable } from '@angular/core';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
   readonly supabaseClient: SupabaseClient;
-  readonly auth = signal<UserResponse | null>(null);
 
   private readonly _supabaseUrl = 'https://xtyvhhxafahoksyzzsdn.supabase.co';
   private readonly _supabaseKey =
@@ -18,11 +13,11 @@ export class SupabaseService {
 
   constructor() {
     this.supabaseClient = createClient(this._supabaseUrl, this._supabaseKey);
-    this.supabaseClient.storage
-      .from('photos')
-      .list()
-      .then(data => {
-        console.log('data', data);
-      });
+    // this.supabaseClient.storage
+    //   .from('photos')
+    //   .list()
+    //   .then(data => {
+    //     console.log('data', data);
+    //   });
   }
 }

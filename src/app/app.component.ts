@@ -11,6 +11,4 @@ import { RouterOutlet } from '@angular/router';
   imports: [RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppComponent {
-  title = 'app-department-challenge';
-}
+export class AppComponent {}
