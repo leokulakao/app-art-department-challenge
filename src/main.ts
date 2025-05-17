@@ -7,7 +7,8 @@ import { canAccessAppGuard } from './app/common/guards/can-access-app.guard';
 import { AuthService } from './app/common/services/auth.service';
 import { SupabaseService } from './app/common/services/supabase.service';
 import { ManagerComponent } from './app/features/manager/manager.component';
-import { OverviewComponent } from './app/features/overview/overview.component';
+import { VotingComponent } from './app/features/voting/voting.component';
+import { VotingService } from './app/features/voting/voting.service';
 
 export const routes: Routes = [
   {
@@ -17,7 +18,8 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: OverviewComponent,
+        providers: [VotingService],
+        component: VotingComponent,
       },
       {
         path: 'manager',
