@@ -3,11 +3,7 @@ import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <h1>Department Challenge</h1>
-
-    <router-outlet></router-outlet>
-  `,
+  template: ` <router-outlet></router-outlet> `,
   imports: [RouterOutlet],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

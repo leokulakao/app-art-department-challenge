@@ -1,1 +1,171 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+
+  color: white;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+}
+
+.page {
+    display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: stretch;
+
+    min-height: 100%;
+}
+
+
+.app-title {
+  &__block {
+    text-align: center;
+  }
+  &__item {
+    margin: 0;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.container {
+  flex: 1 1 auto;
+}
+
+.header {
+  flex: 0 1 auto;
+  height: 100px;
+  width: 100vw;
+}
+
+.navigation {
+  flex: 0 1 auto;
+  height: 64px;
+  width: calc(100vw - 40px);
+  text-align: right;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.button {
+  border: 0;
+  background-color: #4a6da7;
+  color: white;
+  font-size: 16px;
+  width: 185px;
+  height: 34px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button--vote {
+  width: 100%;
+  background-color: #2d4367;
+}
+
+.articles-container {
+  flex: 1 1 auto;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.article {
+  &__link {
+    text-decoration: none;
+    color: #a4b8df;
+  }
+  &__title {
+    display: block;
+    font-size: 20px;
+    color: #a4b8df;
+  }
+  &__item {
+    width: 250px;
+    margin-right: 15px;
+    margin-left: 15px;
+     margin-bottom: 20px;
+  }
+  &__img {
+    width: 100%;
+  }
+}
+
+.candidate-title {
+  text-align: center;
+}
+
+.candidate-container {
+  flex: 1 1 auto;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.candidate {
+  &__link {
+    text-decoration: none;
+    color: #a4b8df;
+  }
+  &__title {
+    display: block;
+    font-size: 20px;
+    color: #a4b8df;
+  }
+  &__item {
+    width: 250px;
+    margin-right: 15px;
+    margin-left: 15px;
+    margin-bottom: 20px;
+  }
+  &__img {
+    width: 100%;
+  }
+}
+
+@media (max-width: 800px) {
+  .articles-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .candidate-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.login-container {
+  flex: 1 1 auto;
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  align-items: center;
+  &__input {
+    font-size: 16px;
+    width: 100%;
+    height: 34px;
+    margin-bottom: 15px;
+    border: 0;
+  }
+  &__button {
+    width: 100%;
+  }
+}

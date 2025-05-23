@@ -24,22 +24,70 @@ export interface Database {
         };
         Relationships: [];
       };
-      'Voting Article': {
+      Votes: {
         Row: {
+          candidate_photo_id: string | null;
           created_at: string;
           id: number;
+          user: number | null;
+          voted: boolean | null;
+          voting_article_id: number | null;
+        };
+        Insert: {
+          candidate_photo_id?: string | null;
+          created_at?: string;
+          id?: number;
+          user?: number | null;
+          voted?: boolean | null;
+          voting_article_id?: number | null;
+        };
+        Update: {
+          candidate_photo_id?: string | null;
+          created_at?: string;
+          id?: number;
+          user?: number | null;
+          voted?: boolean | null;
+          voting_article_id?: number | null;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'Votes_user_fkey';
+            columns: ['user'];
+            isOneToOne: false;
+            referencedRelation: 'Users';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'Votes_voting_article_id_fkey';
+            columns: ['voting_article_id'];
+            isOneToOne: false;
+            referencedRelation: 'Voting Article';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      'Voting Article': {
+        Row: {
+          candidate_photos: string[] | null;
+          created_at: string;
+          id: number;
+          main_photo: string | null;
           title: string | null;
           vote_criteria: string | null;
         };
         Insert: {
+          candidate_photos?: string[] | null;
           created_at?: string;
           id?: number;
+          main_photo?: string | null;
           title?: string | null;
           vote_criteria?: string | null;
         };
         Update: {
+          candidate_photos?: string[] | null;
           created_at?: string;
           id?: number;
+          main_photo?: string | null;
           title?: string | null;
           vote_criteria?: string | null;
         };
