@@ -21,7 +21,9 @@ import { VotingArticlesStore } from '../../common/signal-store/voting-articles.s
               track $index
             ) {
               <div class="article__item">
-                <a class="article__link" [routerLink]="'item/' + votingArticle.id">
+                <a
+                  class="article__link"
+                  [routerLink]="'item/' + votingArticle.id">
                   <img
                     class="article__img"
                     [src]="votingArticle.mainPhotoUrl"

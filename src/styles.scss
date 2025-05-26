@@ -43,8 +43,9 @@ body {
 
 .container {
   width: 100%;
-  max-width: 75rem;
+  max-width: 100rem;
   margin-inline: auto;
+  padding-inline: 1.5rem;
 }
 
 .header {
@@ -55,25 +56,36 @@ body {
 
 .navigation {
   flex: 0 1 auto;
-  height: 64px;
+  height: 4rem;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding-right: 20px;
   padding-left: 20px;
+
+  .button {
+    width: auto;
+    min-width: 17.5rem;
+  }
 }
 
 .button {
   border: 0;
   background-color: #4a6da7;
   color: white;
-  font-size: 16px;
-  width: 185px;
-  height: 34px;
+  font-weight: bold;
+
+  font-size: 1.5rem;
+  width: 100%;
+  height: auto;
+  padding: .5em .75em;
+  line-height: 1;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
+
   cursor: pointer;
   transition: background-color 0.2s;
 
@@ -81,11 +93,6 @@ body {
   &:focus {
     background-color: #6785b4;
   }
-}
-
-.button--vote {
-  width: 100%;
-  background-color: #2d4367;
 }
 
 .articles {
@@ -98,14 +105,29 @@ body {
   padding-block: 4rem;
 
   &__header {
-    color: #fd9d42;
+    color: rgb(255 255 255 / 80%);
+    margin-block-end: 3rem;
 
-    font-family: "Nothing You Could Do", cursive;
-    font-weight: 400;
-    font-style: normal;
+    > h1,
+    > h2 {
+      color: #fd9d42;
+      font-family: 'Nothing You Could Do', cursive;
+      font-weight: 400;
+      font-style: normal;
+      margin: 0;
+    }
 
     > h1 {
       font-size: 3rem;
+
+      + h2 {
+        margin-block-start: 0.5rem;
+      }
+    }
+
+    > h2 {
+      font-size: 2.5rem;
+      opacity: 0.8;
     }
   }
 
@@ -116,6 +138,15 @@ body {
     justify-content: center;
     gap: 2rem;
     margin-inline: -1rem;
+
+    &--candidates {
+      margin-inline: 0;
+
+      &:has(> :hover) .candidate,
+      &:has(> .candidate--voted) .candidate {
+        opacity: 0.5;
+      }
+    }
   }
 }
 
@@ -125,7 +156,9 @@ body {
     color: #a4b8df;
     padding: 1rem;
     display: block;
-    transition: background-color 0.2s, color 0.2s;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
 
     &:hover,
     &:focus {
@@ -146,38 +179,53 @@ body {
     aspect-ratio: 1 / 1;
     object-fit: cover;
     height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
   }
-}
-
-.candidate-title {
-  text-align: center;
-}
-
-.candidate-container {
-  flex: 1 1 auto;
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
 }
 
 .candidate {
-  &__link {
-    text-decoration: none;
-    color: #a4b8df;
+  padding: 0.5rem;
+  display: block;
+  background-color: white;
+  transition: opacity 0.2s;
+  position: relative;
+
+  &:hover,
+  &--voted {
+    opacity: 1 !important;
   }
-  &__title {
-    display: block;
-    font-size: 20px;
-    color: #a4b8df;
+
+  &:hover .button {
+    pointer-events: initial;
+    opacity: 1;
   }
-  &__item {
-    width: 250px;
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 20px;
-  }
+
   &__img {
+    display: block;
     width: 100%;
+    object-fit: cover;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &__vote {
+    color: #222;
+    font-weight: bold;
+    text-align: center;
+    margin-block-start: 0.5rem;
+    font-size: 1.125rem;
+  }
+
+  .button {
+    position: absolute;
+    inset-block-end: 0.5rem;
+    inset-inline: 0.5rem;
+    width: auto;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
   }
 }
 
@@ -204,11 +252,11 @@ body {
 .field {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 480px;
   align-items: center;
 
   &__input {
-    font-size: 1rem;
+    font-size: 1.5rem;
     width: 100%;
     height: auto;
     padding: 0.75em 1em;

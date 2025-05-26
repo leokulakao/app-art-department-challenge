@@ -13,47 +13,49 @@ import { VotingArticlesStore } from '../../common/signal-store/voting-articles.s
   selector: 'app-voting-article',
   template: `
     <div class="page">
-      <header class="header">
-        <div class="app-title__block">
-          <h2 class="app-title__item">Art Department Challenge</h2>
-        </div>
-      </header>
-      @if (votingArticleStore.paramVotingArticle(); as votingArticle) {
-        <main class="container">
-          <div class="candidate-title">
-            <p>{{ votingArticle.title }}</p>
-            <p>{{ votingArticle.vote_criteria }}</p>
-          </div>
+      <main class="articles">
+        <div class="container">
+          @if (votingArticleStore.paramVotingArticle(); as votingArticle) {
+            <div class="articles__header">
+              <h1>Art Department Challenge</h1>
+              <h2>{{ votingArticle.title }}</h2>
+              <p>{{ votingArticle.vote_criteria }}</p>
+            </div>
 
-          <div class="candidate-container">
-            @for (item of votingArticle.candidatePhotoViews; track $index) {
-              <div class="candidate__item">
-                <img
-                  class="candidate__img"
-                  [src]="item.candidatePhotoUrl"
-                  alt="Image" />
-                @if (showVoteButton()) {
-                  <button
-                    class="button button--vote"
-                    (click)="onVote(votingArticle.id, item.candidatePhotoId)">
-                    Votar
-                  </button>
-                } @else if (item.isVoted) {
-                  <button
-                    class="button button--vote"
-                    (click)="onVote(votingArticle.id, item.candidatePhotoId)"
-                    disabled>
-                    Votado
-                  </button>
-                }
-              </div>
-            }
-          </div>
-        </main>
-      }
+            <div
+              class="articles__list articles__list--candidates"
+              [class]="{
+                'articles__list--voted': showVoteButton,
+              }">
+              @for (item of votingArticle.candidatePhotoViews; track $index) {
+                <div
+                  class="candidate"
+                  [class]="{ 'candidate--voted': item.isVoted }">
+                  <img
+                    class="candidate__img"
+                    [src]="item.candidatePhotoUrl"
+                    alt="Imagen" />
+                  @if (showVoteButton()) {
+                    <button
+                      class="button button--vote"
+                      (click)="onVote(votingArticle.id, item.candidatePhotoId)">
+                      ¡Esta es mi favorita!
+                    </button>
+                  } @else if (item.isVoted) {
+                    <div class="candidate__vote">
+                      ¡Has seleccionado esta foto!<br />
+                      ¡Gracias!
+                    </div>
+                  }
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </main>
 
       <footer class="navigation">
-        <button class="button" (click)="onBack()">Atras</button>
+        <button class="button" (click)="onBack()">Ir al menú principal</button>
       </footer>
     </div>
   `,
