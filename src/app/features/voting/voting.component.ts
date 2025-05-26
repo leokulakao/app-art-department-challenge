@@ -9,29 +9,28 @@ import { VotingArticlesStore } from '../../common/signal-store/voting-articles.s
   selector: 'app-voting',
   template: `
     <div class="page">
-      <header class="header">
-        <div class="app-title__block">
-          <h2 class="app-title__item">Art Department Challenge</h2>
-        </div>
-      </header>
-      <main class="container">
-        <div class="articles-container">
-          @for (
-            votingArticle of votingArticlesStore.votingArticlesWithPhoto();
-            track $index
-          ) {
-            <div class="article__item">
-              <a
-                class="article__link"
-                [routerLink]="'item/' + votingArticle.id">
-                <img
-                  class="article__img"
-                  [src]="votingArticle.mainPhotoUrl"
-                  alt="Image" />
-                <span class="article__title">{{ votingArticle.title }}</span>
-              </a>
-            </div>
-          }
+      <main class="articles">
+        <div class="container">
+          <div class="articles__header">
+            <h1>Art Department Challenge</h1>
+          </div>
+
+          <div class="articles__list">
+            @for (
+              votingArticle of votingArticlesStore.votingArticlesWithPhoto();
+              track $index
+            ) {
+              <div class="article__item">
+                <a class="article__link" [routerLink]="'item/' + votingArticle.id">
+                  <img
+                    class="article__img"
+                    [src]="votingArticle.mainPhotoUrl"
+                    alt="Image" />
+                  <span class="article__title">{{ votingArticle.title }}</span>
+                </a>
+              </div>
+            }
+          </div>
         </div>
       </main>
       <footer class="navigation">

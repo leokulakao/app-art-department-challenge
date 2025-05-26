@@ -15,7 +15,7 @@ body {
   font-variation-settings: 'wdth' 100;
 
   color: white;
-  background-color: black;
+  background-image: linear-gradient(135deg, #222 0%, #111 100%);
   margin: 0;
   padding: 0;
   height: 100vh;
@@ -42,7 +42,9 @@ body {
 }
 
 .container {
-  flex: 1 1 auto;
+  width: 100%;
+  max-width: 75rem;
+  margin-inline: auto;
 }
 
 .header {
@@ -54,8 +56,10 @@ body {
 .navigation {
   flex: 0 1 auto;
   height: 64px;
-  width: calc(100vw - 40px);
-  text-align: right;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-right: 20px;
   padding-left: 20px;
 }
@@ -84,31 +88,64 @@ body {
   background-color: #2d4367;
 }
 
-.articles-container {
+.articles {
   flex: 1 1 auto;
-  margin-top: 10%;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
+  padding-block: 4rem;
+
+  &__header {
+    color: #fd9d42;
+
+    font-family: "Nothing You Could Do", cursive;
+    font-weight: 400;
+    font-style: normal;
+
+    > h1 {
+      font-size: 3rem;
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-inline: -1rem;
+  }
 }
 
 .article {
   &__link {
     text-decoration: none;
     color: #a4b8df;
+    padding: 1rem;
+    display: block;
+    transition: background-color 0.2s, color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(#2d4367, 0.6);
+      color: white;
+    }
   }
+
   &__title {
     display: block;
-    font-size: 20px;
-    color: #a4b8df;
+    font-size: 1.5rem;
+    margin-block-start: 1rem;
   }
-  &__item {
-    width: 250px;
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 20px;
-  }
+
   &__img {
+    display: block;
     width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    height: auto;
   }
 }
 
