@@ -18,7 +18,7 @@ body {
   background-image: linear-gradient(135deg, #222 0%, #111 100%);
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .page {
@@ -27,7 +27,7 @@ body {
   justify-content: space-between;
   align-content: stretch;
 
-  min-height: 100%;
+  min-height: 100dvh;
 }
 
 .app-title {
@@ -56,7 +56,7 @@ body {
 
 .navigation {
   flex: 0 1 auto;
-  height: 4rem;
+  height: 5rem;
   width: 100%;
   display: flex;
   align-items: center;
@@ -79,7 +79,7 @@ body {
   font-size: 1.5rem;
   width: 100%;
   height: auto;
-  padding: 0.5em 0.75em;
+  padding: 0.625em 1em;
   line-height: 1;
 
   display: inline-flex;
@@ -88,6 +88,10 @@ body {
 
   cursor: pointer;
   transition: background-color 0.2s;
+
+  border-radius: 0.25rem;
+  border: 1px solid #6785b4;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
 
   &:hover,
   &:focus {
@@ -128,6 +132,16 @@ body {
     > h2 {
       font-size: 2.5rem;
       opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      > svg {
+        fill: currentColor;
+        color: currentColor;
+        width: 1.5em;
+        height: auto;
+      }
     }
   }
 
@@ -152,6 +166,10 @@ body {
 }
 
 .article {
+  &__item {
+    position: relative;
+  }
+
   &__link {
     text-decoration: none;
     color: #a4b8df;
@@ -183,6 +201,27 @@ body {
     user-select: none;
     -webkit-user-drag: none;
   }
+
+  &__done {
+    fill: #fd9d42;
+    color: #fd9d42;
+    width: 10rem;
+    height: auto;
+
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+
+    .article__item--voted & {
+      display: block;
+    }
+  }
 }
 
 .candidate {
@@ -209,6 +248,7 @@ body {
     padding: 0;
     border: 0;
     cursor: pointer;
+    display: block;
   }
 
   &__img {
@@ -230,12 +270,39 @@ body {
 
   .button {
     position: absolute;
-    inset-block-end: 0.5rem;
-    inset-inline: 0.5rem;
+    inset-block-end: 0;
+    inset-inline: 0;
     width: auto;
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.2s;
+  }
+
+  .button--vote {
+    // border-radius: 0;
+    border: 0.5rem solid white;
+    box-shadow: none;
+  }
+
+  &__svg {
+    fill: #fd9d42;
+    color: #fd9d42;
+    width: 10rem;
+    height: auto;
+
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
+    margin-top: -1.5rem;
+    pointer-events: none;
+
+    .candidate--voted & {
+      display: block;
+    }
   }
 }
 
@@ -292,6 +359,8 @@ dialog {
   background-color: #222;
   width: 100dvw;
   height: 100dvh;
+  inset: 0;
+  border: 0;
 
   &[open] {
     display: flex;
@@ -317,6 +386,10 @@ dialog {
     width: 30rem;
   }
 
+  .button--vote {
+    inset-block-end: 1rem;
+  }
+
   .candidate__vote {
     background-color: white;
     padding: 1rem 2rem;
@@ -335,6 +408,10 @@ dialog {
   appearance: none;
   background-color: #4a6da7;
   color: white;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   position: absolute;
   inset-block-start: 50%;
