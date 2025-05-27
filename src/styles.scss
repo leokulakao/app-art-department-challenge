@@ -1,30 +1,34 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   font-optical-sizing: auto;
   font-weight: 500;
   font-style: normal;
-  font-variation-settings:
-    "wdth" 100;
+  font-variation-settings: 'wdth' 100;
 
   color: white;
-  background-color: black;
+  background-image: linear-gradient(135deg, #222 0%, #111 100%);
   margin: 0;
   padding: 0;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .page {
-    display: flex;
+  display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-content: stretch;
 
-    min-height: 100%;
+  min-height: 100dvh;
 }
-
 
 .app-title {
   &__block {
@@ -38,7 +42,10 @@ body {
 }
 
 .container {
-  flex: 1 1 auto;
+  width: 100%;
+  max-width: 100rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
 }
 
 .header {
@@ -49,87 +56,253 @@ body {
 
 .navigation {
   flex: 0 1 auto;
-  height: 64px;
-  width: calc(100vw - 40px);
-  text-align: right;
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding-right: 20px;
   padding-left: 20px;
+
+  .button {
+    width: auto;
+    min-width: 17.5rem;
+  }
 }
 
 .button {
   border: 0;
   background-color: #4a6da7;
   color: white;
-  font-size: 16px;
-  width: 185px;
-  height: 34px;
-  &:hover {
-    cursor: pointer;
+  font-weight: bold;
+
+  font-size: 1.5rem;
+  width: 100%;
+  height: auto;
+  padding: 0.625em 1em;
+  line-height: 1;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  border-radius: 0.25rem;
+  border: 1px solid #6785b4;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
+
+  &:hover,
+  &:focus {
+    background-color: #6785b4;
   }
 }
 
-.button--vote {
-  width: 100%;
-  background-color: #2d4367;
-}
-
-.articles-container {
+.articles {
   flex: 1 1 auto;
-  margin-top: 10%;
+
   display: flex;
+  flex-direction: column;
   justify-content: center;
+
+  padding-block: 4rem;
+
+  &__header {
+    color: rgb(255 255 255 / 80%);
+    margin-block-end: 3rem;
+
+    > h1,
+    > h2 {
+      color: #fd9d42;
+      font-family: 'Nothing You Could Do', cursive;
+      font-weight: 400;
+      font-style: normal;
+      margin: 0;
+    }
+
+    > h1 {
+      font-size: 3rem;
+
+      + h2 {
+        margin-block-start: 0.5rem;
+      }
+    }
+
+    > h2 {
+      font-size: 2.5rem;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      > svg {
+        fill: currentColor;
+        color: currentColor;
+        width: 1.5em;
+        height: auto;
+      }
+    }
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-inline: -1rem;
+
+    &--candidates {
+      margin-inline: 0;
+
+      &:has(> :hover) .candidate,
+      &:focus-within .candidate,
+      &:has(> .candidate--voted) .candidate {
+        opacity: 0.5;
+      }
+    }
+  }
 }
 
 .article {
+  &__item {
+    position: relative;
+  }
+
   &__link {
     text-decoration: none;
     color: #a4b8df;
+    padding: 1rem;
+    display: block;
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+
+    &:hover,
+    &:focus {
+      background-color: rgba(#2d4367, 0.6);
+      color: white;
+    }
   }
+
   &__title {
     display: block;
-    font-size: 20px;
-    color: #a4b8df;
+    font-size: 1.5rem;
+    margin-block-start: 1rem;
   }
-  &__item {
-    width: 250px;
-    margin-right: 15px;
-    margin-left: 15px;
-     margin-bottom: 20px;
-  }
+
   &__img {
+    display: block;
     width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
   }
-}
 
-.candidate-title {
-  text-align: center;
-}
+  &__done {
+    fill: #fd9d42;
+    color: #fd9d42;
+    width: 10rem;
+    height: auto;
 
-.candidate-container {
-  flex: 1 1 auto;
-  margin-top: 10%;
-  display: flex;
-  justify-content: center;
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
+    pointer-events: none;
+
+    .article__item--voted & {
+      display: block;
+    }
+  }
 }
 
 .candidate {
-  &__link {
-    text-decoration: none;
-    color: #a4b8df;
+  padding: 0.5rem;
+  display: block;
+  background-color: white;
+  transition: opacity 0.2s;
+  position: relative;
+
+  &:hover,
+  &:focus-within,
+  &--voted {
+    opacity: 1 !important;
   }
-  &__title {
+
+  &:focus-within .button,
+  &:hover .button {
+    pointer-events: initial;
+    opacity: 1;
+  }
+
+  &__button {
+    appearance: none;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
     display: block;
-    font-size: 20px;
-    color: #a4b8df;
   }
-  &__item {
-    width: 250px;
-    margin-right: 15px;
-    margin-left: 15px;
-    margin-bottom: 20px;
-  }
+
   &__img {
+    display: block;
     width: 100%;
+    object-fit: cover;
+    height: auto;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &__vote {
+    color: #222;
+    font-weight: bold;
+    text-align: center;
+    margin-block-start: 0.5rem;
+    font-size: 1.125rem;
+  }
+
+  .button {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    width: auto;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .button--vote {
+    // border-radius: 0;
+    border: 0.5rem solid white;
+    box-shadow: none;
+  }
+
+  &__svg {
+    fill: #fd9d42;
+    color: #fd9d42;
+    width: 10rem;
+    height: auto;
+
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 0.5rem rgba(0, 0, 0, 0.5));
+    margin-top: -1.5rem;
+    pointer-events: none;
+
+    .candidate--voted & {
+      display: block;
+    }
   }
 }
 
@@ -148,24 +321,134 @@ body {
 
 .login-container {
   flex: 1 1 auto;
-  margin-top: 10%;
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
 .field {
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 480px;
   align-items: center;
+
   &__input {
-    font-size: 16px;
+    font-size: 1.5rem;
     width: 100%;
-    height: 34px;
-    margin-bottom: 15px;
+    height: auto;
+    padding: 0.75em 1em;
+    margin-bottom: 1rem;
     border: 0;
+    appearance: none;
+    background-color: white;
   }
+
   &__button {
     width: 100%;
+
+    &:hover,
+    &:focus {
+      cursor: pointer;
+    }
   }
+}
+
+dialog {
+  padding: 0;
+  appearance: none;
+  background-color: #222;
+  width: 100dvw;
+  height: 100dvh;
+  inset: 0;
+  border: 0;
+
+  &[open] {
+    display: flex;
+    align-items: center;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .button--vote,
+  .candidate__vote {
+    position: absolute;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    inset-block-end: 0;
+
+    max-width: 100%;
+    width: 30rem;
+  }
+
+  .button--vote {
+    inset-block-end: 1rem;
+  }
+
+  .candidate__vote {
+    background-color: white;
+    padding: 1rem 2rem;
+  }
+}
+
+.button--prev,
+.button--next,
+.button--close {
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  appearance: none;
+  background-color: #4a6da7;
+  color: white;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inset-inline-end: 0;
+  transition: all 0.2s;
+
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #6785b4;
+  }
+
+  > svg {
+    color: currentColor;
+    fill: currentColor;
+
+    width: 60%;
+    height: auto;
+  }
+}
+
+.button--prev {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+
+  > svg {
+    transform: scaleX(-1);
+  }
+}
+
+.button--close {
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  transform: none;
 }
