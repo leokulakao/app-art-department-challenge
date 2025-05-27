@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../common/services/auth.service';
 import { SupabaseService } from '../../common/services/supabase.service';
 import { VotingArticlesStore } from '../../common/signal-store/voting-articles.store';
+import { VotingArticleView } from '../../common/types/app.types';
 
 @Component({
   selector: 'app-voting',
@@ -70,7 +71,7 @@ export class VotingComponent {
     this.router.navigate(['/']);
   }
 
-  protected showVotedButton({ candidatePhotoViews }: any) {
+  protected showVotedButton({ candidatePhotoViews }: VotingArticleView) {
     if (Array.isArray(candidatePhotoViews)) {
       return candidatePhotoViews.find(
         votingArticle => votingArticle.isVoted === true
