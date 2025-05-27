@@ -11,7 +11,7 @@ import { AuthService } from '../../common/services/auth.service';
           <input
             class="field__input"
             type="text"
-            placeholder="Escribe tu numero" />
+            placeholder="Escribe tu nombre" />
           <button class="field__button button" (click)="onSubmit()">
             Entrar
           </button>

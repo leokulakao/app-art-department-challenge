@@ -79,7 +79,7 @@ body {
   font-size: 1.5rem;
   width: 100%;
   height: auto;
-  padding: .5em .75em;
+  padding: 0.5em 0.75em;
   line-height: 1;
 
   display: inline-flex;
@@ -143,6 +143,7 @@ body {
       margin-inline: 0;
 
       &:has(> :hover) .candidate,
+      &:focus-within .candidate,
       &:has(> .candidate--voted) .candidate {
         opacity: 0.5;
       }
@@ -192,13 +193,22 @@ body {
   position: relative;
 
   &:hover,
+  &:focus-within,
   &--voted {
     opacity: 1 !important;
   }
 
+  &:focus-within .button,
   &:hover .button {
     pointer-events: initial;
     opacity: 1;
+  }
+
+  &__button {
+    appearance: none;
+    padding: 0;
+    border: 0;
+    cursor: pointer;
   }
 
   &__img {
@@ -274,4 +284,94 @@ body {
       cursor: pointer;
     }
   }
+}
+
+dialog {
+  padding: 0;
+  appearance: none;
+  background-color: #222;
+  width: 100dvw;
+  height: 100dvh;
+
+  &[open] {
+    display: flex;
+    align-items: center;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .container {
+    position: relative;
+  }
+
+  .button--vote,
+  .candidate__vote {
+    position: absolute;
+    inset-inline-start: 50%;
+    transform: translateX(-50%);
+    inset-block-end: 0;
+
+    max-width: 100%;
+    width: 30rem;
+  }
+
+  .candidate__vote {
+    background-color: white;
+    padding: 1rem 2rem;
+  }
+}
+
+.button--prev,
+.button--next,
+.button--close {
+  width: 5rem;
+  height: 5rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.5rem;
+  line-height: 1;
+  appearance: none;
+  background-color: #4a6da7;
+  color: white;
+
+  position: absolute;
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+  inset-inline-end: 0;
+  transition: all 0.2s;
+
+  cursor: pointer;
+
+  &:hover,
+  &:focus {
+    background-color: #6785b4;
+  }
+
+  > svg {
+    color: currentColor;
+    fill: currentColor;
+
+    width: 60%;
+    height: auto;
+  }
+}
+
+.button--prev {
+  inset-inline-start: 0;
+  inset-inline-end: auto;
+
+  > svg {
+    transform: scaleX(-1);
+  }
+}
+
+.button--close {
+  width: 3rem;
+  height: 3rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  transform: none;
 }
