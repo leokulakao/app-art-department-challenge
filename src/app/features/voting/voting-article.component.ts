@@ -155,7 +155,9 @@ import { CandidatePhotoView } from '../../common/types/app.types';
 
       <footer class="navigation">
         <div class="container">
-          <button class="button" (click)="onBack()">Ir al menú principal</button>
+          <button class="button" (click)="onBack()">
+            Ir al menú principal
+          </button>
         </div>
       </footer>
     </div>

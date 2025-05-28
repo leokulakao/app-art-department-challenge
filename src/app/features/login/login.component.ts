@@ -24,7 +24,6 @@ export class LoginComponent {
   private readonly authService = inject(AuthService);
   protected onSubmit(event: Event | null): void {
     event?.preventDefault();
-    console.log('Login submitted');
     void this.authService.login();
   }
 }
