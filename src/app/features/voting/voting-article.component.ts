@@ -18,9 +18,12 @@ import { CandidatePhotoView } from '../../common/types/app.types';
         <div class="container">
           @if (votingArticleStore.paramVotingArticle(); as votingArticle) {
             <div class="articles__header">
-              <h1>Art Department Challenge</h1>
-              <h2>{{ votingArticle.title }}</h2>
-              <p>{{ votingArticle.vote_criteria }}</p>
+              <h1>{{ votingArticle.title }}</h1>
+              <h2>Galeria de fotos</h2>
+              <p>
+                De estas fotos elige la que más te guste en función de
+                originalidad, interpretacióin y vestimenta.
+              </p>
             </div>
 
             <div
@@ -151,7 +154,9 @@ import { CandidatePhotoView } from '../../common/types/app.types';
       </main>
 
       <footer class="navigation">
-        <button class="button" (click)="onBack()">Ir al menú principal</button>
+        <div class="container">
+          <button class="button" (click)="onBack()">Ir al menú principal</button>
+        </div>
       </footer>
     </div>
   `,
