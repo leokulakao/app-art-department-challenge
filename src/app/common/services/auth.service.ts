@@ -25,6 +25,19 @@ export class AuthService {
     return localStorage.getItem(this._userIdKey);
   }
 
+  async checkUser() {
+    const result: PostgrestSingleResponse<Tables<'Users'>[]> =
+      await this._supabaseClient
+        .from('Users')
+        .select('*')
+        .eq('id', this.userId);
+    if (result.error) {
+      console.error('Error logging in user', result.error);
+      return;
+    }
+    return result.data.length > 0 ? true : false;
+  }
+
   async login() {
     const result: PostgrestSingleResponse<Tables<'Users'>[]> =
       await this._supabaseClient.from('Users').insert({}).select();
