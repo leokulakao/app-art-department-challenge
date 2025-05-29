@@ -7,15 +7,14 @@ import { AuthService } from '../../common/services/auth.service';
   template: `
     <div class="page">
       <main class="login-container">
-        <div class="field">
+        <h1>Art Department Challenge</h1>
+        <form action="" class="field" (submit)="onSubmit($event)">
           <input
             class="field__input"
             type="text"
             placeholder="Escribe tu nombre" />
-          <button class="field__button button" (click)="onSubmit()">
-            Entrar
-          </button>
-        </div>
+          <button type="submit" class="field__button button">Entrar</button>
+        </form>
       </main>
     </div>
   `,
@@ -23,7 +22,8 @@ import { AuthService } from '../../common/services/auth.service';
 })
 export class LoginComponent {
   private readonly authService = inject(AuthService);
-  protected onSubmit() {
+  protected onSubmit(event: Event | null): void {
+    event?.preventDefault();
     void this.authService.login();
   }
 }

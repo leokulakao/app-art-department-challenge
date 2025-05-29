@@ -14,6 +14,7 @@ import { VotingArticleView } from '../../common/types/app.types';
         <div class="container">
           <div class="articles__header">
             <h1>Art Department Challenge</h1>
+            <p>Entra en cada bloque y elegi tu favorita.</p>
           </div>
 
           <div class="articles__list">
@@ -51,9 +52,11 @@ import { VotingArticleView } from '../../common/types/app.types';
         </div>
       </main>
       <footer class="navigation">
-        @if (votingArticlesStore.allArticleAreVoted()) {
-          <button class="button" (click)="onSend()">Enviar resultados</button>
-        }
+        <div class="container">
+          @if (votingArticlesStore.allArticleAreVoted()) {
+            <button class="button" (click)="onSend()">Enviar resultados</button>
+          }
+        </div>
       </footer>
     </div>
   `,
