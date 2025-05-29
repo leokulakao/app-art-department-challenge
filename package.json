@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "types": "npx supabase gen types typescript --project-id 'xtyvhhxafahoksyzzsdn' --schema public > ./src/app/common/types/database.types.ts"
+    "types": "npx supabase gen types typescript --project-id 'xtyvhhxafahoksyzzsdn' --schema public > ./src/app/common/types/database.types.ts",
+    "deploy": "ng deploy --base-href=/app-art-department-challenge/"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +22,7 @@
     "@angular/router": "^19.2.0",
     "@ngrx/signals": "^19.2.0",
     "@supabase/supabase-js": "^2.43.2",
+    "angular-cli-ghpages": "^2.0.3",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
