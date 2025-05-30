@@ -82,6 +82,7 @@ import { CandidatePhotoView } from '../../common/types/app.types';
           id="open_dialog"
           aria-labelledby="dialog_title"
           aria-describedby="dialog_description"
+          [class]="{ 'is-voted': !showVoteButton() }"
           [open]="isDialogSelected !== null"
           (mousedown)="onMouseDown($event)"
           (keydown)="onDialogKeydown($event)"
@@ -207,12 +208,16 @@ export class VotingArticleComponent {
     this.votingArticleSelected = null;
     document.documentElement.classList.remove('overflow-hidden');
 
-    const el = document.getElementById(
-      `candidate-${lastIndex?.candidatePhotoId}`
-    );
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    // scroll element into view
+    setTimeout(() => {
+      const el = document.getElementById(
+        `candidate-${lastIndex?.candidatePhotoId}`
+      );
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('candidate--highlighted');
+      }
+    }, 0);
   }
 
   protected showItem(
