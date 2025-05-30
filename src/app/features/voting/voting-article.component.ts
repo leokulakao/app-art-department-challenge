@@ -33,6 +33,7 @@ import { CandidatePhotoView } from '../../common/types/app.types';
               }">
               @for (item of votingArticle.candidatePhotoViews; track $index) {
                 <div
+                  id="candidate-{{ item.candidatePhotoId }}"
                   class="candidate"
                   [class]="{ 'candidate--voted': item.isVoted }">
                   <button
@@ -81,6 +82,7 @@ import { CandidatePhotoView } from '../../common/types/app.types';
           id="open_dialog"
           aria-labelledby="dialog_title"
           aria-describedby="dialog_description"
+          [class]="{ 'is-voted': !showVoteButton() }"
           [open]="isDialogSelected !== null"
           (mousedown)="onMouseDown($event)"
           (keydown)="onDialogKeydown($event)"
@@ -199,19 +201,38 @@ export class VotingArticleComponent {
   protected isDialogSelected: CandidatePhotoView | null = null;
   protected votingArticleSelected: number | null = null;
 
+  protected hideModal() {
+    const lastIndex = this.isDialogSelected;
+
+    this.isDialogSelected = null;
+    this.votingArticleSelected = null;
+    document.documentElement.classList.remove('overflow-hidden');
+
+    // scroll element into view
+    setTimeout(() => {
+      const el = document.getElementById(
+        `candidate-${lastIndex?.candidatePhotoId}`
+      );
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.classList.add('candidate--highlighted');
+      }
+    }, 0);
+  }
+
   protected showItem(
     index: number | null,
     all: CandidatePhotoView[] = [],
     votingArticleId?: number
   ) {
     if (index === null) {
-      this.isDialogSelected = null;
-      this.votingArticleSelected = null;
+      this.hideModal();
       return;
     }
 
     this.isDialogSelected = all[index] || null;
     this.votingArticleSelected = votingArticleId || null;
+    document.documentElement.classList.add('overflow-hidden');
 
     // focus the dialog after it is opened
     setTimeout(() => {
@@ -225,7 +246,7 @@ export class VotingArticleComponent {
 
   protected onMouseDown(event: MouseEvent) {
     if (event.target === event.currentTarget) {
-      this.isDialogSelected = null;
+      this.hideModal();
     }
   }
 
@@ -280,8 +301,7 @@ export class VotingArticleComponent {
       this.goTo('prev');
     } else if (event.key === 'Escape') {
       event.preventDefault();
-      this.isDialogSelected = null;
-      this.votingArticleSelected = null;
+      this.hideModal();
     }
   }
 }

@@ -54,7 +54,7 @@ import { VotingArticleView } from '../../common/types/app.types';
       <footer class="navigation">
         <div class="container">
           @if (votingArticlesStore.allArticleAreVoted()) {
-            <button class="button" (click)="onSend()">Enviar resultados</button>
+            <button class="button ml" (click)="onSend()">Enviar resultados</button>
           }
         </div>
       </footer>

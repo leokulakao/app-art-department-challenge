@@ -7,6 +7,13 @@
   box-sizing: border-box;
 }
 
+html {
+
+  &.overflow-hidden {
+    overflow: hidden;
+  }
+}
+
 body {
   font-family: 'Noto Sans', sans-serif;
   font-optical-sizing: auto;
@@ -18,7 +25,9 @@ body {
   background-image: linear-gradient(135deg, #222 0%, #111 100%);
   margin: 0;
   padding: 0;
+
   min-height: 100dvh;
+  overflow-x: clip;
 }
 
 .page {
@@ -27,6 +36,8 @@ body {
   justify-content: space-between;
   align-content: stretch;
 
+  overflow: hidden;
+
   min-height: 100dvh;
 }
 
@@ -34,6 +45,7 @@ body {
   &__block {
     text-align: center;
   }
+
   &__item {
     margin: 0;
     padding-top: 20px;
@@ -56,17 +68,33 @@ body {
 
 .navigation {
   flex: 0 1 auto;
-  height: 5rem;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding: 0;
+
+  background: linear-gradient(180deg, rgb(17 17 17 / 20%) 0%, rgb(17 17 17 / 80%) 100%);
+  border-top: 1px solid rgb(255 255 255 / 15%);
+
+  position: fixed;
+  z-index: 1000 ;
+  inset-inline: 0;
+  inset-block-end: 0;
+
+  backdrop-filter: blur(4px);
+
+  > .container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-block: 1.5rem;
+  }
 
   .button {
     width: auto;
     min-width: 17.5rem;
+  }
+
+  .ml {
+    margin-inline-start: auto;
   }
 }
 
@@ -106,7 +134,8 @@ body {
   flex-direction: column;
   justify-content: center;
 
-  padding-block: 4rem;
+  padding-block-start: 4rem;
+  padding-block-end: 8rem;
 
   &__header {
     color: rgb(255 255 255 / 80%);
@@ -130,7 +159,7 @@ body {
     }
 
     > h2 {
-      font-size: 2rem;
+      font-size: 1.75rem;
       opacity: 0.8;
       display: flex;
       align-items: center;
@@ -144,6 +173,10 @@ body {
         height: auto;
       }
     }
+
+    > p {
+      font-size: 1.5rem;
+    }
   }
 
   &__list {
@@ -153,6 +186,10 @@ body {
     justify-content: center;
     gap: 2rem;
     margin-inline: -1rem;
+
+    @media (width > 1000px) {
+      grid-template-columns: repeat(3, minmax(250px, 1fr));
+    }
 
     &--candidates {
       margin-inline: 0;
@@ -225,12 +262,26 @@ body {
   }
 }
 
+@keyframes highlight-bg {
+  from {
+    background-color: #ffe2c7;
+  }
+  to {
+    background-color: #fff;
+  }
+}
+
 .candidate {
   padding: 0.5rem;
   display: block;
   background-color: white;
   transition: opacity 0.2s;
   position: relative;
+
+  &--highlighted {
+    background-color: #fd9d42;
+    animation: highlight-bg 2s forwards;
+  }
 
   &:hover,
   &:focus-within,
@@ -370,7 +421,6 @@ body {
 }
 
 dialog {
-  padding: 0;
   appearance: none;
   background-color: #222;
   width: 100dvw;
@@ -381,6 +431,11 @@ dialog {
   &[open] {
     display: flex;
     align-items: center;
+    z-index: 10000;
+
+    &.is-voted {
+      z-index: initial;
+    }
   }
 
   &:focus {
@@ -409,6 +464,11 @@ dialog {
   .candidate__vote {
     background-color: white;
     padding: 1rem 2rem;
+    box-shadow: rgba(0, 0, 0, 0.2) 0 2px 4px;
+    border-radius: 0.25rem;
+
+    inset-block-start: 0;
+    inset-block-end: auto;
   }
 }
 
