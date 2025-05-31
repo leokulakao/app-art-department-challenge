@@ -71,7 +71,9 @@ export class VotingComponent {
 
   protected onSend() {
     this.authService.logout();
-    this.router.navigate(['/']);
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
   }
 
   protected showVotedButton({ candidatePhotoViews }: VotingArticleView) {
